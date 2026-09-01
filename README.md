@@ -5,6 +5,9 @@ Indicates how I am today.
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <title>System Status</title>
 
 <style>
@@ -31,8 +34,13 @@ h1 {
 .label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.percent {
+  font-weight: bold;
 }
 
 .bar {
@@ -40,30 +48,40 @@ h1 {
   background: #333;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 15px;
 }
 
 .fill {
   height: 100%;
   border-radius: 10px;
+  transition: width 0.2s;
 }
 
-.sens { width: 60%; background: #ff9f0a; }
-.hp { width: 75%; background: #30d158; }
-.energy { width: 50%; background: #0a84ff; }
-.social { width: 60%; background: #bf5af2; }
-.executive { width: 50%; background: #ff375f; }
+.controls {
+  display: flex;
+  gap: 10px;
+}
 
 button {
-  width: 100%;
-  padding: 15px;
+  flex: 1;
   border: none;
-  border-radius: 14px;
-  background: #fff;
-  color: #000;
-  font-size: 17px;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 22px;
   font-weight: bold;
-  margin-top: 10px;
+  background: #333;
+  color: white;
 }
+
+button:active {
+  transform: scale(0.95);
+}
+
+.sens { background: #ff9f0a; }
+.hp { background: #30d158; }
+.energy { background: #0a84ff; }
+.social { background: #bf5af2; }
+.executive { background: #ff375f; }
 </style>
 </head>
 
@@ -74,42 +92,98 @@ button {
 <div class="status">
   <div class="label">
     <span>Sensory Sensitivity</span>
-    <span>60%</span>
+    <span class="percent" id="sensory-value">60%</span>
   </div>
-  <div class="bar"><div class="fill sens"></div></div>
+  <div class="bar">
+    <div class="fill sens" id="sensory-bar" style="width:60%"></div>
+  </div>
+  <div class="controls">
+    <button onclick="change('sensory', -10)">−</button>
+    <button onclick="change('sensory', 10)">+</button>
+  </div>
 </div>
 
 <div class="status">
   <div class="label">
     <span>Body HP</span>
-    <span>75%</span>
+    <span class="percent" id="hp-value">75%</span>
   </div>
-  <div class="bar"><div class="fill hp"></div></div>
+  <div class="bar">
+    <div class="fill hp" id="hp-bar" style="width:75%"></div>
+  </div>
+  <div class="controls">
+    <button onclick="change('hp', -10)">−</button>
+    <button onclick="change('hp', 10)">+</button>
+  </div>
 </div>
 
 <div class="status">
   <div class="label">
     <span>Energy</span>
-    <span>50%</span>
+    <span class="percent" id="energy-value">50%</span>
   </div>
-  <div class="bar"><div class="fill energy"></div></div>
+  <div class="bar">
+    <div class="fill energy" id="energy-bar" style="width:50%"></div>
+  </div>
+  <div class="controls">
+    <button onclick="change('energy', -10)">−</button>
+    <button onclick="change('energy', 10)">+</button>
+  </div>
 </div>
 
 <div class="status">
   <div class="label">
     <span>Social Energy</span>
-    <span>60%</span>
+    <span class="percent" id="social-value">60%</span>
   </div>
-  <div class="bar"><div class="fill social"></div></div>
+  <div class="bar">
+    <div class="fill social" id="social-bar" style="width:60%"></div>
+  </div>
+  <div class="controls">
+    <button onclick="change('social', -10)">−</button>
+    <button onclick="change('social', 10)">+</button>
+  </div>
 </div>
 
 <div class="status">
   <div class="label">
     <span>Executive Function</span>
-    <span>50%</span>
+    <span class="percent" id="executive-value">50%</span>
   </div>
-  <div class="bar"><div class="fill executive"></div></div>
+  <div class="bar">
+    <div class="fill executive" id="executive-bar" style="width:50%"></div>
+  </div>
+  <div class="controls">
+    <button onclick="change('executive', -10)">−</button>
+    <button onclick="change('executive', 10)">+</button>
+  </div>
 </div>
+
+<script>
+
+let values = {
+  sensory: 60,
+  hp: 75,
+  energy: 50,
+  social: 60,
+  executive: 50
+};
+
+function change(name, amount) {
+
+  values[name] += amount;
+
+  if (values[name] < 0) values[name] = 0;
+  if (values[name] > 100) values[name] = 100;
+
+  document.getElementById(name + "-value").textContent =
+    values[name] + "%";
+
+  document.getElementById(name + "-bar").style.width =
+    values[name] + "%";
+}
+
+</script>
 
 </body>
 </html>
