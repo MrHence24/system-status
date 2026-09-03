@@ -8,72 +8,74 @@
 <title>System Status</title>
 <style>
 :root {
-  --bg: #111;
-  --card: #1d1d1f;
+  --bg: #0f0f10;
+  --card: #1c1c1e;
+  --card2: #2c2c2e;
   --text: #ffffff;
   --muted: #a1a1a6;
+  --red: #ff453a;
 }
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  padding: 20px;
   background: var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
-h1 {
+header {
+  padding: 18px 20px 10px;
   text-align: center;
-  margin: 10px 0 5px;
+}
+h1 {
+  margin: 0;
+  font-size: 28px;
 }
 .subtitle {
-  text-align: center;
+  margin-top: 5px;
   color: var(--muted);
-  margin-bottom: 20px;
+  font-size: 14px;
 }
-/* RED ALERT */
-#red-alert-button {
-  width: 100%;
-  padding: 18px;
-  border: none;
-  border-radius: 18px;
-  font-size: 20px;
-  font-weight: 800;
-  background: #ff453a;
-  color: white;
-  margin-bottom: 20px;
-}
-#red-alert-button:active {
-  transform: scale(.97);
-}
-.red-alert-active {
-  background: #2b1111 !important;
-  border: 2px solid #ff453a !important;
-}
-.red-alert-banner {
-  background: #ff453a;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  line-height: 1.45;
-}
-.dismiss-alert {
-  width: 100%;
-  margin-top: 12px;
+/* ---------------- NAV ---------------- */
+nav {
+  display: flex;
+  gap: 8px;
   padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
 }
-/* SECTIONS */
+.nav-button {
+  flex: 1;
+  padding: 13px 5px;
+  border: none;
+  border-radius: 14px;
+  background: var(--card2);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+.nav-button.active {
+  background: white;
+  color: black;
+}
+/* ---------------- PAGES ---------------- */
+.page {
+  display: none;
+  padding: 8px 16px 35px;
+}
+.page.active {
+  display: block;
+}
+/* ---------------- STATUS ---------------- */
 .section-title {
   font-size: 13px;
-  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 28px 5px 10px;
+  color: var(--muted);
+  margin: 22px 5px 10px;
 }
 .status {
   background: var(--card);
@@ -84,21 +86,20 @@ h1 {
 .status-name {
   font-size: 18px;
   font-weight: 650;
-  margin-bottom: 4px;
 }
 .status-description {
   font-size: 13px;
   color: var(--muted);
-  margin-bottom: 14px;
+  margin: 5px 0 14px;
 }
 .levels {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 7px;
+  gap: 6px;
 }
 .level {
-  border: 1px solid #444;
-  background: #2a2a2c;
+  border: 1px solid #48484a;
+  background: var(--card2);
   color: white;
   border-radius: 10px;
   padding: 11px 2px;
@@ -108,7 +109,6 @@ h1 {
 .level.selected {
   background: white;
   color: black;
-  border-color: white;
 }
 .level-label {
   display: block;
@@ -116,162 +116,428 @@ h1 {
   margin-top: 4px;
   font-weight: normal;
 }
-/* SUMMARY */
-#summary {
-  background: #222;
+/* ---------------- TRANSLATION ---------------- */
+#translation {
+  background: var(--card);
   border-radius: 20px;
   padding: 20px;
-  margin-top: 30px;
-  margin-bottom: 25px;
-}
-#summary h2 {
-  margin-top: 0;
+  margin-top: 25px;
 }
 .system-state {
-  font-size: 21px;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.best-response {
+  background: var(--card2);
+  padding: 15px;
+  border-radius: 14px;
+  margin: 15px 0;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 12px;
 }
-.bottleneck {
-  background: #2d2d30;
-  border-radius: 12px;
-  padding: 12px;
-  margin-top: 10px;
-}
-.pattern {
-  margin-top: 16px;
-  padding: 14px;
-  border-radius: 12px;
-  background: #292929;
-}
-.summary-text {
-  line-height: 1.5;
-  color: #ddd;
-  margin-top: 14px;
-}
-.summary-section {
+.translation-section {
   margin-top: 20px;
 }
-.summary-section h3 {
-  font-size: 16px;
+.translation-section h3 {
+  margin-bottom: 8px;
 }
-.summary-section ul {
-  padding-left: 20px;
+.translation-section p,
+.translation-section li {
   line-height: 1.5;
-  color: #ccc;
+  color: #dedee2;
 }
-.reset {
+/* ---------------- QUICK COMMUNICATE ---------------- */
+.quick-intro {
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.quick-button {
+  min-height: 125px;
+  border: none;
+  border-radius: 22px;
+  padding: 15px 8px;
+  color: white;
+  background: var(--card);
+  font-size: 17px;
+  font-weight: 700;
+}
+.quick-icon {
+  display: block;
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+/* ---------------- MESSAGE SCREEN ---------------- */
+.message-screen {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.message-icon {
+  font-size: 75px;
+}
+.message-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 18px 0;
+}
+.message-text {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #ddd;
+}
+.back-button {
+  margin-top: 35px;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+}
+/* ---------------- RED ALERT ---------------- */
+.alert-button {
   width: 100%;
-  padding: 14px;
+  background: var(--red);
+  border: none;
+  color: white;
+  border-radius: 22px;
+  padding: 22px;
+  font-size: 21px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+.alert-box {
+  background: #321616;
+  border: 2px solid var(--red);
+  border-radius: 22px;
+  padding: 22px;
+  margin-top: 20px;
+}
+.alert-box h2 {
+  margin-top: 0;
+  color: var(--red);
+}
+.dismiss {
+  width: 100%;
+  padding: 15px;
   border-radius: 14px;
   border: none;
+  margin-top: 15px;
   font-size: 16px;
-  margin-bottom: 30px;
-}
-.hidden {
-  display: none;
 }
 </style>
 </head>
 <body>
-<h1>🧠 System Status</h1>
-<div class="subtitle">
-  How is the system operating right now?
-</div>
-<button id="red-alert-button" onclick="activateRedAlert()">
-  🚨 RED ALERT — TOO OVERLOADED TO ASSESS
-</button>
-<div id="red-alert-area"></div>
-<div id="normal-app">
-  <div id="app"></div>
-  <div id="summary">
-<h2>Translation</h2>
-<div id="summary-content"></div>
+<header>
+  <h1>🧠 System Status</h1>
+  <div class="subtitle">
+    Real-time accessibility & communication
   </div>
-  <button class="reset" onclick="resetAll()">
-    Reset to baseline
-  </button>
+</header>
+<nav>
+
+⚡ Quick
+📊 Status
+🚨 Alert
+</nav>
+<!-- ================= QUICK ================= -->
+<div id="quick" class="page active">
+  <div class="quick-intro">
+Tap once. The app will communicate for you.
+  </div>
+  <div class="quick-grid">
+<button class="quick-button"
+  onclick="showMessage('lessTalking')">
+  <span class="quick-icon">🔇</span>
+  Less Talking
+</button>
+<button class="quick-button"
+  onclick="showMessage('break')">
+  <span class="quick-icon">🧘</span>
+  I Need a Break
+</button>
+<button class="quick-button"
+  onclick="showMessage('sensory')">
+  <span class="quick-icon">🔊</span>
+  Too Much Input
+</button>
+<button class="quick-button"
+  onclick="showMessage('demands')">
+  <span class="quick-icon">🛑</span>
+  Reduce Demands
+</button>
+<button class="quick-button"
+  onclick="showMessage('understand')">
+  <span class="quick-icon">💬</span>
+  I Understand
+</button>
+<button class="quick-button"
+  onclick="showMessage('notAngry')">
+  <span class="quick-icon">❤️</span>
+  Not Angry
+</button>
+<button class="quick-button"
+  onclick="showMessage('time')">
+  <span class="quick-icon">⏳</span>
+  Give Me Time
+</button>
+<button class="quick-button"
+  onclick="showMessage('stim')">
+  <span class="quick-icon">🧠</span>
+  I Need to Stim
+</button>
+  </div>
 </div>
+<!-- ================= STATUS ================= -->
+<div id="status" class="page">
+  <div id="status-app"></div>
+  <div id="translation">
+<h2>Translation</h2>
+<div id="translation-content"></div>
+  </div>
+</div>
+<!-- ================= ALERT ================= -->
+<div id="alert" class="page">
+🚨 RED ALERT
+<br>
+TOO OVERLOADED TO EXPLAIN
+  </button>
+  <div id="alert-content"></div>
+</div>
+<!-- ================= MESSAGE SCREEN ================= -->
+<div id="message" class="page"></div>
 <script>
+/* =========================================
+   NAVIGATION
+========================================= */
+function showPage(pageId, button) {
+  document
+    .querySelectorAll('.page')
+    .forEach(page =>
+      page.classList.remove('active')
+    );
+  document
+    .getElementById(pageId)
+    .classList.add('active');
+  document
+    .querySelectorAll('.nav-button')
+    .forEach(btn =>
+      btn.classList.remove('active')
+    );
+  if (button) {
+    button.classList.add('active');
+  }
+}
+/* =========================================
+   QUICK COMMUNICATION MESSAGES
+========================================= */
+const messages = {
+  lessTalking: {
+    icon: "🔇",
+    title: "I NEED LESS TALKING",
+    text:
+      "I am having difficulty processing and responding to conversation right now. Please reduce unnecessary questions and give me time to process. I may understand what you are saying even if I cannot respond normally."
+  },
+  break: {
+    icon: "🧘",
+    title: "I NEED A BREAK",
+    text:
+      "My current capacity is reduced and I need time away from demands or stimulation. Please allow me to take a break without requiring me to explain or justify it."
+  },
+  sensory: {
+    icon: "🔊",
+    title: "TOO MUCH INPUT",
+    text:
+      "My nervous system is receiving more sensory input than I can comfortably process right now. Reducing noise, talking, interruptions, light, touch, or other stimulation would help."
+  },
+  demands: {
+    icon: "🛑",
+    title: "PLEASE REDUCE DEMANDS",
+    text:
+      "Additional requests or expectations are difficult for me to process right now. Please avoid adding unnecessary demands and focus on what is actually urgent."
+  },
+  understand: {
+    icon: "💬",
+    title: "I UNDERSTAND",
+    text:
+      "I may understand what you are saying even though I am having difficulty responding. Please do not assume silence or delayed communication means I am ignoring you."
+  },
+  notAngry: {
+    icon: "❤️",
+    title: "I'M NOT ANGRY",
+    text:
+      "My reduced communication, facial expression, withdrawal, or need for space does not necessarily mean I am angry or upset with you. I currently have limited capacity to interact."
+  },
+  time: {
+    icon: "⏳",
+    title: "PLEASE GIVE ME TIME",
+    text:
+      "I need additional time to process what is happening and determine how to respond. Please avoid repeatedly asking for an immediate answer."
+  },
+  stim: {
+    icon: "🧠",
+    title: "I NEED TO STIM",
+    text:
+      "I may need repetitive movement, sounds, fidgeting, pacing, or another form of self-regulation. Please allow this unless there is a genuine safety concern. Stimming may help me regulate and recover capacity."
+  }
+};
+function showMessage(key) {
+  const message = messages[key];
+  const page =
+    document.getElementById("message");
+  page.innerHTML = `
+    <div class="message-screen">
+      <div class="message-icon">
+        ${message.icon}
+      </div>
+      <div class="message-title">
+        ${message.title}
+      </div>
+      <div class="message-text">
+        ${message.text}
+      </div>
+      <button class="back-button"
+        onclick="returnToQuick()">
+        ← Back
+      </button>
+    </div>
+  `;
+  showPage("message");
+}
+function returnToQuick() {
+  document
+    .querySelectorAll('.page')
+    .forEach(page =>
+      page.classList.remove('active')
+    );
+  document
+    .getElementById('quick')
+    .classList.add('active');
+  document
+    .querySelectorAll('.nav-button')
+    .forEach(btn =>
+      btn.classList.remove('active')
+    );
+  document
+    .querySelector('.nav-button')
+    .classList.add('active');
+}
+/* =========================================
+   RED ALERT
+========================================= */
+function activateAlert() {
+  document
+    .getElementById("alert-content")
+    .innerHTML = `
+      <div class="alert-box">
+        <h2>
+          🚨 SYSTEM OVERLOADED
+        </h2>
+        <p>
+          I am currently too overloaded to explain,
+          answer questions, or accurately assess what
+          is happening.
+        </p>
+        <p>
+          Please do not interpret silence, delayed
+          responses, reduced communication, stimming,
+          withdrawal, or a need to leave as anger,
+          disrespect, or lack of care.
+        </p>
+        <p>
+          <strong>
+            BEST RESPONSE:
+          </strong>
+          Reduce demands and sensory input. Avoid
+          asking multiple questions. Allow me to take
+          a break, stim, or have space.
+        </p>
+        <p>
+          If something is urgent, communicate it
+          simply and directly.
+        </p>
+        <button class="dismiss"
+          onclick="dismissAlert()">
+          I'm able to communicate again
+        </button>
+      </div>
+    `;
+}
+function dismissAlert() {
+  document
+    .getElementById("alert-content")
+    .innerHTML = "";
+}
+/* =========================================
+   STATUS DATA
+========================================= */
 const metrics = {
   physical: {
     name: "🫀 Physical Capacity",
-    short: "Physical Capacity",
     type: "capacity",
     description: "How much can my body physically do right now?"
   },
   energy: {
     name: "⚡ Energy",
-    short: "Energy",
     type: "capacity",
     description: "How much usable energy do I have?"
   },
   cognitive: {
     name: "🧠 Cognitive Bandwidth",
-    short: "Cognitive Bandwidth",
     type: "capacity",
     description: "How much information and complexity can I process?"
   },
   executive: {
     name: "🎯 Executive Function",
-    short: "Executive Function",
     type: "capacity",
     description: "How easily can I start, organize, and complete tasks?"
   },
   communication: {
     name: "💬 Communication Capacity",
-    short: "Communication Capacity",
     type: "capacity",
     description: "How much communication can I produce and process?"
   },
   social: {
     name: "🤝 Social Capacity",
-    short: "Social Capacity",
     type: "capacity",
     description: "How much interpersonal interaction can I handle?"
   },
   sensory: {
     name: "🔊 Sensory Load",
-    short: "Sensory Load",
     type: "load",
     description: "How overloaded am I by sensory input?"
   },
   stress: {
     name: "⚠️ Stress Load",
-    short: "Stress Load",
     type: "load",
     description: "How much accumulated pressure is my system carrying?"
   },
   demand: {
     name: "📋 Demand Pressure",
-    short: "Demand Pressure",
     type: "load",
-    description: "How strongly is my system resisting expectations and demands?"
+    description: "How difficult are expectations and requests right now?"
   },
   transition: {
     name: "🔄 Transition Difficulty",
-    short: "Transition Difficulty",
     type: "load",
-    description: "How difficult is it to switch tasks or change plans?"
+    description: "How difficult is switching tasks or changing plans?"
   }
 };
-const capacityLabels = [
-  "",
-  "Critical",
-  "Low",
-  "Limited",
-  "Good",
-  "Full"
-];
-const loadLabels = [
-  "",
-  "Minimal",
-  "Manageable",
-  "Elevated",
-  "High",
-  "Critical"
-];
-let values = JSON.parse(localStorage.getItem("systemStatus")) || {
+const capacityLabels =
+["", "Critical", "Low", "Limited", "Good", "Full"];
+const loadLabels =
+["", "Minimal", "Manageable", "Elevated", "High", "Critical"];
+let values =
+JSON.parse(
+  localStorage.getItem("systemStatus")
+) || {
   physical: 3,
   energy: 3,
   cognitive: 3,
@@ -283,90 +549,41 @@ let values = JSON.parse(localStorage.getItem("systemStatus")) || {
   demand: 3,
   transition: 3
 };
-let redAlert =
-  JSON.parse(localStorage.getItem("redAlert")) || false;
-/* -------------------- */
-/* RED ALERT */
-/* -------------------- */
-function activateRedAlert() {
-  redAlert = true;
-  localStorage.setItem(
-    "redAlert",
-    JSON.stringify(true)
-  );
-  renderApp();
-}
-function dismissRedAlert() {
-  redAlert = false;
-  localStorage.setItem(
-    "redAlert",
-    JSON.stringify(false)
-  );
-  renderApp();
-}
-/* -------------------- */
-/* RENDER */
-/* -------------------- */
-function renderApp() {
-  const normalApp =
-    document.getElementById("normal-app");
-  const alertArea =
-    document.getElementById("red-alert-area");
-  if (redAlert) {
-    normalApp.classList.add("hidden");
-    alertArea.innerHTML = `
-      <div class="red-alert-banner">
-        <h2>🚨 SYSTEM OVERLOADED</h2>
-        I am currently too overloaded to accurately
-        explain or assess what is happening.
-        <br><br>
-        Please do not interpret reduced communication,
-        delayed responses, silence, or difficulty answering
-        questions as anger, disrespect, or lack of care.
-        <br><br>
-        The most helpful response right now is to reduce
-        demands, avoid asking multiple questions, minimize
-        sensory input, and allow time and space for recovery.
-        <br><br>
-        If something is urgent, communicate it clearly,
-        directly, and simply.
-        <button class="dismiss-alert"
-          onclick="dismissRedAlert()">
-          I'm able to assess again
-        </button>
-      </div>
-    `;
-    return;
-  }
-  normalApp.classList.remove("hidden");
-  alertArea.innerHTML = "";
+/* =========================================
+   RENDER STATUS
+========================================= */
+function renderStatus() {
   const app =
-    document.getElementById("app");
+    document.getElementById(
+      "status-app"
+    );
   app.innerHTML = "";
-  addSection(
+  addStatusSection(
     app,
     "Available Capacity",
     "capacity"
   );
-  addSection(
+  addStatusSection(
     app,
     "Current Load",
     "load"
   );
-  updateSummary();
+  updateTranslation();
 }
-function addSection(
+function addStatusSection(
   app,
   title,
   type
 ) {
-  const sectionTitle =
+  const heading =
     document.createElement("div");
-  sectionTitle.className =
+  heading.className =
     "section-title";
-  sectionTitle.textContent =
+  heading.textContent =
     title;
-  app.appendChild(sectionTitle);
+  app.appendChild(
+    heading
+  );
   Object.entries(metrics)
     .filter(
       ([key, metric]) =>
@@ -391,18 +608,14 @@ function createMetric(
     document.createElement("div");
   card.className =
     "status";
-  const name =
-    document.createElement("div");
-  name.className =
-    "status-name";
-  name.textContent =
-    metric.name;
-  const description =
-    document.createElement("div");
-  description.className =
-    "status-description";
-  description.textContent =
-    metric.description;
+  card.innerHTML = `
+    <div class="status-name">
+      ${metric.name}
+    </div>
+    <div class="status-description">
+      ${metric.description}
+    </div>
+  `;
   const levels =
     document.createElement("div");
   levels.className =
@@ -429,184 +642,32 @@ function createMetric(
         : loadLabels;
     button.innerHTML =
       level +
-      '<span class="level-label">' +
-      labels[level] +
-      '</span>';
-    button.onclick = () => {
-      values[key] =
-        level;
-      save();
-      renderApp();
-    };
+      `<span class="level-label">
+        ${labels[level]}
+      </span>`;
+    button.onclick =
+      () => {
+        values[key] =
+          level;
+        localStorage.setItem(
+          "systemStatus",
+          JSON.stringify(values)
+        );
+        renderStatus();
+      };
     levels.appendChild(
       button
     );
   }
   card.appendChild(
-    name
-  );
-  card.appendChild(
-    description
-  );
-  card.appendChild(
     levels
   );
   return card;
 }
-function save() {
-  localStorage.setItem(
-    "systemStatus",
-    JSON.stringify(values)
-  );
-}
-/* -------------------- */
-/* BOTTLENECK ENGINE */
-/* -------------------- */
-function getBottlenecks() {
-  let limitations = [];
-  Object.keys(metrics)
-    .forEach(key => {
-      const metric =
-        metrics[key];
-      let severity;
-      if (
-        metric.type ===
-        "capacity"
-      ) {
-        severity =
-          6 - values[key];
-      }
-      else {
-        severity =
-          values[key];
-      }
-      limitations.push({
-        key,
-        name:
-          metric.short,
-        severity
-      });
-    });
-  limitations.sort(
-    (
-      a,
-      b
-    ) =>
-      b.severity -
-      a.severity
-  );
-  return {
-    primary:
-      limitations[0],
-    secondary:
-      limitations[1]
-  };
-}
-/* -------------------- */
-/* PATTERN ENGINE */
-/* -------------------- */
-function detectPattern() {
-  /* FUEL WITHOUT TRACTION */
-  if (
-    values.energy >= 4 &&
-    values.executive <= 2
-  ) {
-    return {
-      name:
-        "⚡ Fuel Without Traction",
-      description:
-        "Energy is available, but converting intention into action is currently difficult. From the outside, this may look like having enough energy but still struggling to begin or organize tasks."
-    };
-  }
-  /* CAPABLE BUT OVERLOADED */
-  if (
-    values.cognitive >= 4 &&
-    values.sensory >= 4
-  ) {
-    return {
-      name:
-        "🧠 Capable but Overloaded",
-      description:
-        "Thinking capacity is largely intact, but environmental input is consuming a disproportionate amount of available resources. Reducing sensory input may restore function more effectively than pushing harder."
-    };
-  }
-  /* EVERYTHING IS FRICTION */
-  if (
-    values.executive <= 3 &&
-    values.demand >= 4 &&
-    values.transition >= 4
-  ) {
-    return {
-      name:
-        "🧱 Everything Is Friction",
-      description:
-        "Starting, switching, and responding to expectations are all carrying additional resistance. Individual tasks may be possible, but the accumulated friction makes ordinary activities significantly more costly."
-    };
-  }
-  /* PUSHING THROUGH */
-  if (
-    values.stress >= 4 &&
-    values.demand >= 4 &&
-    values.energy >= 2
-  ) {
-    return {
-      name:
-        "🔥 Pushing Through",
-      description:
-        "The system may still be completing tasks, but it is doing so under sustained pressure rather than from comfortable reserves. Continued demands may cause a sharper reduction in capacity later."
-    };
-  }
-  /* SOCIAL DEPLETION */
-  if (
-    values.social <= 2 &&
-    values.communication <= 2
-  ) {
-    return {
-      name:
-        "🤝 Socially Depleted",
-      description:
-        "Interpersonal interaction and communication are currently expensive. Reduced engagement should not automatically be interpreted as rejection, anger, or lack of desire for connection."
-    };
-  }
-  /* ENERGY DEPLETION */
-  if (
-    values.energy <= 2 &&
-    values.physical <= 2
-  ) {
-    return {
-      name:
-        "🔋 Resource Depletion",
-      description:
-        "The primary limitation appears to be depleted physical and general energy reserves. Restoring resources may be more useful right now than increasing structure or motivation."
-    };
-  }
-  /* HIGH PRESSURE */
-  if (
-    values.stress >= 4 &&
-    values.demand >= 4
-  ) {
-    return {
-      name:
-        "⚠️ High-Pressure State",
-      description:
-        "Background stress and current expectations are both placing substantial pressure on the system. Even relatively small additional demands may have a larger-than-expected impact."
-    };
-  }
-  return {
-    name:
-      "⚙️ Mixed System State",
-    description:
-      "No single dominant pattern is currently standing out. Capacity and load are interacting across multiple areas."
-  };
-}
-/* -------------------- */
-/* TRANSLATION ENGINE */
-/* -------------------- */
-function updateSummary() {
-  const bottlenecks =
-    getBottlenecks();
-  const pattern =
-    detectPattern();
+/* =========================================
+   RESPONSE-FIRST TRANSLATOR
+========================================= */
+function updateTranslation() {
   const capacityKeys =
     Object.keys(metrics)
       .filter(
@@ -623,197 +684,275 @@ function updateSummary() {
             .type ===
           "load"
       );
-  const averageCapacity =
-    capacityKeys.reduce(
-      (
-        sum,
-        key
-      ) =>
-        sum +
-        values[key],
-      0
-    )
+  const avgCapacity =
+    capacityKeys
+      .reduce(
+        (
+          sum,
+          key
+        ) =>
+          sum +
+          values[key],
+        0
+      )
     /
     capacityKeys.length;
-  const averageLoad =
-    loadKeys.reduce(
-      (
-        sum,
-        key
-      ) =>
-        sum +
-        values[key],
-      0
-    )
+  const avgLoad =
+    loadKeys
+      .reduce(
+        (
+          sum,
+          key
+        ) =>
+          sum +
+          values[key],
+        0
+      )
     /
     loadKeys.length;
   let state;
+  let response;
   if (
-    averageCapacity >= 4 &&
-    averageLoad <= 2
+    avgCapacity >= 4 &&
+    avgLoad <= 2
   ) {
     state =
-      "🟢 Good Capacity";
+      "🟢 AVAILABLE";
+    response =
+      "INTERACT NORMALLY";
   }
   else if (
-    averageCapacity >= 3.5 &&
-    averageLoad <= 3
+    avgCapacity >= 3 &&
+    avgLoad <= 3
   ) {
     state =
-      "🟡 Functional";
+      "🟡 LIMITED";
+    response =
+      "SIMPLIFY";
   }
   else if (
-    averageCapacity >= 2.5
+    avgCapacity >= 2.3
   ) {
     state =
-      "🟠 Strained";
+      "🟠 STRAINED";
+    response =
+      "REDUCE PRESSURE";
   }
   else {
     state =
-      "🔴 Low Capacity";
+      "🔴 OVERLOADED";
+    response =
+      "PROTECT AND ALLOW RECOVERY";
   }
-  const effects = [];
+  /* DOMINANT FACTORS */
+  let factors = [];
+  Object.keys(metrics)
+    .forEach(
+      key => {
+        let severity;
+        if (
+          metrics[key].type ===
+          "capacity"
+        ) {
+          severity =
+            6 - values[key];
+        }
+        else {
+          severity =
+            values[key];
+        }
+        factors.push({
+          key,
+          severity
+        });
+      }
+    );
+  factors.sort(
+    (
+      a,
+      b
+    ) =>
+      b.severity -
+      a.severity
+  );
+  const primary =
+    factors.slice(
+      0,
+      3
+    );
+  /* WHAT IS HAPPENING */
+  let cause =
+    "Several factors are contributing to current capacity.";
   if (
-    values.executive <= 2
+    primary.some(
+      f =>
+        f.key ===
+        "sensory"
+    )
   ) {
-    effects.push(
-      "Understanding what needs to happen does not necessarily mean starting or organizing it is currently easy."
+    cause =
+      "Sensory input is consuming a significant amount of available capacity.";
+  }
+  if (
+    primary.some(
+      f =>
+        f.key ===
+        "demand"
+    )
+  ) {
+    cause +=
+      " Current expectations and requests are adding additional pressure.";
+  }
+  if (
+    primary.some(
+      f =>
+        f.key ===
+        "executive"
+    )
+  ) {
+    cause +=
+      " Starting, organizing, or switching tasks may require extra effort.";
+  }
+  if (
+    primary.some(
+      f =>
+        f.key ===
+        "energy"
+    )
+  ) {
+    cause =
+      "Available energy reserves are currently limited, increasing the cost of ordinary activities.";
+  }
+  /* OBSERVABLE BEHAVIOR */
+  let notice = [];
+  if (
+    values.sensory >= 4
+  ) {
+    notice.push(
+      "Increased stimming or attempts to regulate sensory input."
+    );
+    notice.push(
+      "A need for quiet, space, or a break."
     );
   }
   if (
     values.communication <= 2
   ) {
-    effects.push(
-      "Communication may be reduced even when attention, care, or understanding are still present."
+    notice.push(
+      "Short, delayed, or absent responses."
     );
   }
-  if (
-    values.cognitive <= 2
-  ) {
-    effects.push(
-      "Complex information, multiple choices, and lengthy explanations may be difficult to process right now."
-    );
-  }
-  if (
-    values.sensory >= 4
-  ) {
-    effects.push(
-      "Environmental input may be consuming resources that would otherwise be available for thinking, communication, or tasks."
-    );
-  }
-  if (
-    values.transition >= 4
-  ) {
-    effects.push(
-      "Changing activities or adapting to interruptions may require substantially more effort than usual."
-    );
-  }
-  if (
-    values.demand >= 4
-  ) {
-    effects.push(
-      "Requests and expectations may create resistance disproportionate to the actual size of the task."
-    );
-  }
-  if (
-    values.energy <= 2
-  ) {
-    effects.push(
-      "Available reserves are limited, so even manageable activities may have a significant recovery cost."
-    );
-  }
-  if (
-    effects.length === 0
-  ) {
-    effects.push(
-      "No major individual limitation is currently standing out."
-    );
-  }
-  const support = [];
   if (
     values.executive <= 2
   ) {
-    support.push(
-      "Provide a concrete first step rather than a broad instruction."
-    );
-  }
-  if (
-    values.cognitive <= 2
-  ) {
-    support.push(
-      "Give information in smaller pieces and reduce unnecessary decisions."
-    );
-  }
-  if (
-    values.sensory >= 4
-  ) {
-    support.push(
-      "Reduce noise, interruptions, and competing sensory input where possible."
-    );
-  }
-  if (
-    values.demand >= 4
-  ) {
-    support.push(
-      "Use collaborative and low-pressure language when possible."
+    notice.push(
+      "Difficulty starting, organizing, or switching tasks."
     );
   }
   if (
     values.transition >= 4
   ) {
-    support.push(
-      "Give advance notice before transitions or changes whenever possible."
+    notice.push(
+      "Increased difficulty with interruptions or sudden changes."
     );
   }
   if (
-    values.energy <= 2
+    values.social <= 2
   ) {
-    support.push(
-      "Prioritize essential activities and protect time for recovery."
+    notice.push(
+      "Withdrawal or reduced interaction."
     );
   }
   if (
-    support.length === 0
+    notice.length === 0
   ) {
-    support.push(
-      "Normal expectations and interaction are likely manageable."
+    notice.push(
+      "Normal interaction may be possible, although capacity may still be reduced."
     );
   }
+  /* ACTIONS */
+  let actions = [];
+  if (
+    response ===
+    "INTERACT NORMALLY"
+  ) {
+    actions.push(
+      "Normal conversation and expectations are generally manageable."
+    );
+  }
+  if (
+    response ===
+    "SIMPLIFY"
+  ) {
+    actions.push(
+      "Communicate clearly and avoid unnecessary complexity."
+    );
+    actions.push(
+      "Give one request or decision at a time when possible."
+    );
+  }
+  if (
+    response ===
+    "REDUCE PRESSURE"
+  ) {
+    actions.push(
+      "Reduce unnecessary questions, decisions, and demands."
+    );
+    actions.push(
+      "Allow a break without requiring an explanation."
+    );
+  }
+  if (
+    response ===
+    "PROTECT AND ALLOW RECOVERY"
+  ) {
+    actions.push(
+      "Reduce demands and sensory input immediately where possible."
+    );
+    actions.push(
+      "Do not require conversation or an explanation."
+    );
+    actions.push(
+      "Allow space, a break, and self-regulation such as stimming."
+    );
+  }
+  /* FACTOR NAMES */
+  const factorNames =
+    primary
+      .map(
+        f =>
+          metrics[f.key].name
+      )
+      .join(
+        " • "
+      );
   document
     .getElementById(
-      "summary-content"
+      "translation-content"
     )
     .innerHTML = `
       <div class="system-state">
         ${state}
       </div>
-      <div class="bottleneck">
-        <strong>
-          🎯 Primary Bottleneck
-        </strong>
+      <div class="best-response">
+        BEST RESPONSE:
         <br>
-        ${bottlenecks.primary.name}
+        ${response}
       </div>
-      <div class="bottleneck">
-        <strong>
-          🥈 Secondary Bottleneck
-        </strong>
-        <br>
-        ${bottlenecks.secondary.name}
-      </div>
-      <div class="pattern">
-        <strong>
-          ${pattern.name}
-        </strong>
-        <br><br>
-        ${pattern.description}
-      </div>
-      <div class="summary-section">
+      <div class="translation-section">
         <h3>
-          What this may look like
+          What is happening
+        </h3>
+        <p>
+          ${cause}
+        </p>
+      </div>
+      <div class="translation-section">
+        <h3>
+          What you may notice
         </h3>
         <ul>
-          ${effects
+          ${notice
             .map(
               item =>
                 `<li>${item}</li>`
@@ -822,12 +961,12 @@ function updateSummary() {
           }
         </ul>
       </div>
-      <div class="summary-section">
+      <div class="translation-section">
         <h3>
-          What helps right now
+          What helps
         </h3>
         <ul>
-          ${support
+          ${actions
             .map(
               item =>
                 `<li>${item}</li>`
@@ -835,23 +974,18 @@ function updateSummary() {
             .join("")
           }
         </ul>
+      </div>
+      <div class="translation-section">
+        <h3>
+          Primary factors
+        </h3>
+        <p>
+          ${factorNames}
+        </p>
       </div>
     `;
 }
-/* -------------------- */
-/* RESET */
-/* -------------------- */
-function resetAll() {
-  Object.keys(values)
-    .forEach(
-      key => {
-        values[key] = 3;
-      }
-    );
-  save();
-  renderApp();
-}
-renderApp();
+renderStatus();
 </script>
 </body>
 </html>
