@@ -2,434 +2,584 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>System Status</title>
 <style>
 :root {
-  --bg: #0f0f10;
-  --card: #1c1c1e;
-  --card2: #2c2c2e;
-  --text: #ffffff;
-  --muted: #a1a1a6;
+  --bg: #0b0d12;
+  --card: #151922;
+  --card2: #202632;
+  --border: #303848;
+  --text: #f5f7fb;
+  --muted: #a9b0bd;
+  --green: #34c759;
+  --yellow: #ffd60a;
+  --orange: #ff9f0a;
   --red: #ff453a;
+  --blue: #0a84ff;
 }
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 body {
   margin: 0;
-  padding: 16px;
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+.app {
+  max-width: 760px;
+  margin: auto;
+  padding: 16px;
+}
+header {
+  text-align: center;
+  padding: 10px 0 20px;
 }
 h1 {
-  text-align: center;
-  margin: 8px 0 4px;
-  font-size: 28px;
+  margin: 0;
+  font-size: 30px;
 }
 .subtitle {
-  text-align: center;
+  margin-top: 6px;
   color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 15px;
 }
-/* RED ALERT */
-.alert-button {
-  width: 100%;
-  background: var(--red);
-  border: none;
-  color: white;
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 20px;
-  font-size: 20px;
-  font-weight: 900;
+  padding: 16px;
   margin-bottom: 16px;
 }
-.alert-box {
-  background: #321616;
-  border: 2px solid var(--red);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-.dismiss {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  margin-top: 12px;
-  font-size: 16px;
-}
-/* SECTION */
 .section-title {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+.section-description {
+  margin: 0 0 16px;
   color: var(--muted);
-  margin: 28px 5px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+/* RED ALERT */
+.red-alert-button {
+  width: 100%;
+  min-height: 72px;
+  border: none;
+  border-radius: 18px;
+  background: var(--red);
+  color: white;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 14px;
+  box-shadow:
+    0 4px 18px rgba(255, 69, 58, .25);
+}
+.red-alert-button:active {
+  transform: scale(.98);
+}
+.alert-panel {
+  display: none;
+  margin-top: 14px;
+  padding: 18px;
+  background: rgba(255, 69, 58, .12);
+  border: 1px solid var(--red);
+  border-radius: 18px;
+}
+.alert-panel.active {
+  display: block;
+}
+.alert-panel h2 {
+  margin-top: 0;
+}
+.alert-panel p {
+  line-height: 1.55;
+  color: #f2d7d5;
+}
+.dismiss-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: var(--card2);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
 }
 /* QUICK COMMUNICATION */
-.quick-intro {
-  color: var(--muted);
-  margin-bottom: 14px;
-  line-height: 1.4;
-}
 .quick-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 .quick-button {
-  min-height: 110px;
-  border: none;
-  border-radius: 20px;
-  padding: 12px 8px;
+  min-height: 112px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card2);
   color: white;
-  background: var(--card);
   font-size: 16px;
   font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
 }
 .quick-button:active {
   transform: scale(.97);
 }
 .quick-icon {
   display: block;
-  font-size: 32px;
-  margin-bottom: 7px;
-}
-/* STATUS QUESTIONS */
-.status {
-  background: var(--card);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-.status-name {
-  font-size: 18px;
-  font-weight: 650;
-}
-.status-description {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 5px 0 14px;
-}
-.levels {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-}
-.level {
-  border: 1px solid #48484a;
-  background: var(--card2);
-  color: white;
-  border-radius: 10px;
-  padding: 11px 2px;
-  font-size: 16px;
-  font-weight: bold;
-}
-.level.selected {
-  background: white;
-  color: black;
-}
-.level-label {
-  display: block;
-  font-size: 8px;
-  margin-top: 4px;
-  font-weight: normal;
-}
-/* TRANSLATION */
-#translation {
-  background: var(--card);
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 25px;
-  margin-bottom: 30px;
-}
-.system-state {
-  font-size: 25px;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-.best-response {
-  background: var(--card2);
-  padding: 16px;
-  border-radius: 14px;
-  margin: 15px 0;
-  font-size: 18px;
-  font-weight: bold;
-}
-.translation-section {
-  margin-top: 20px;
-}
-.translation-section h3 {
+  font-size: 31px;
   margin-bottom: 8px;
 }
-.translation-section p,
-.translation-section li {
-  line-height: 1.5;
-  color: #dedee2;
+/* STATUS */
+.status-group-title {
+  margin: 24px 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-/* FULL SCREEN MESSAGE */
-#message-overlay {
+.status-group-title:first-child {
+  margin-top: 0;
+}
+.metric {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+}
+.metric-name {
+  font-size: 17px;
+  font-weight: 750;
+}
+.metric-description {
+  margin-top: 4px;
+  margin-bottom: 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.level-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+}
+.level-button {
+  min-height: 48px;
+  border: 1px solid #3a4352;
+  border-radius: 11px;
+  background: #171c25;
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.level-button:active {
+  transform: scale(.95);
+}
+.level-button.selected {
+  background: white;
+  color: #101216;
+  border-color: white;
+}
+.level-label {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  min-height: 15px;
+}
+/* TRANSLATION */
+.translation-state {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+.response-box {
+  padding: 16px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  background: var(--card2);
+  font-size: 18px;
+  font-weight: 850;
+}
+.response-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.translation-block {
+  margin-top: 20px;
+}
+.translation-block h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.translation-block p,
+.translation-block li {
+  color: #d7dbe3;
+  line-height: 1.5;
+}
+.translation-block ul {
+  padding-left: 21px;
+  margin: 8px 0;
+}
+/* MESSAGE OVERLAY */
+.message-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: var(--bg);
   z-index: 100;
-  padding: 25px;
+  padding: 22px;
+  background: #0b0d12;
 }
-#message-overlay.active {
+.message-overlay.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 }
 .message-icon {
-  font-size: 70px;
+  font-size: 76px;
 }
 .message-title {
-  font-size: 30px;
-  font-weight: 800;
   margin: 20px 0;
+  font-size: 31px;
+  font-weight: 900;
 }
 .message-text {
   font-size: 20px;
-  line-height: 1.5;
-  color: #ddd;
+  line-height: 1.55;
+  color: #e0e3e9;
 }
-.back-button {
-  margin-top: 35px;
-  padding: 16px;
+.message-back {
+  width: 100%;
+  margin-top: 36px;
+  padding: 17px;
   border: none;
   border-radius: 16px;
+  background: white;
+  color: black;
   font-size: 18px;
+  font-weight: 800;
+}
+.footer {
+  text-align: center;
+  padding: 10px 0 25px;
+  color: var(--muted);
+  font-size: 13px;
+}
+@media (min-width: 650px) {
+  .quick-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
 }
 </style>
 </head>
 <body>
-<h1>🧠 System Status</h1>
-<div class="subtitle">
-  Real-time accessibility & communication
-</div>
+<div class="app">
+<header>
+  <h1>🧠 System Status</h1>
+  <div class="subtitle">
+    Real-time accessibility & communication
+  </div>
+</header>
 <!-- RED ALERT -->
-
+<section class="section">
 🚨 RED ALERT — TOO OVERLOADED TO EXPLAIN
-
+  </button>
+  <div
+    class="alert-panel"
+    id="alertPanel">
+<h2>🚨 System Overloaded</h2>
+<p>
+  I am currently too overloaded to explain,
+  answer questions, or accurately describe
+  what is happening.
+</p>
+<p>
+  Please do not interpret silence, delayed
+  responses, withdrawal, stimming, or a need
+  to leave as anger, disrespect, or lack of care.
+</p>
+<p>
+  <strong>Best response:</strong><br>
+  Reduce demands and sensory input. Avoid
+  asking multiple questions. Allow me to take
+  a break, stim, or have space.
+</p>
+<p>
+  If something is urgent, communicate it
+  simply and directly.
+</p>
+<button
+  type="button"
+  class="dismiss-button"
+  id="dismissAlertButton">
+  I'm able to communicate again
 </button>
-<div id="alert-content"></div>
-<!-- QUICK COMMUNICATION -->
-<div class="section-title">
-  ⚡ Quick Communicate
-</div>
-<div class="quick-intro">
-  Tap once when finding words is difficult.
-</div>
-<div class="quick-grid">
-
-🔇
-Less Talking
-🧘
-I Need a Break
-🔊
-Too Much Input
-🛑
-Reduce Demands
-💬
-I Understand
-❤️
-Not Angry
-⏳
-Give Me Time
-🧠
-I Need to Stim
-</div>
+  </div>
+</section>
+<!-- QUICK COMMUNICATE -->
+<section class="section">
+  <h2 class="section-title">
+    ⚡ Quick Communicate
+  </h2>
+  <p class="section-description">
+    Tap once when finding words is difficult.
+  </p>
+  <div class="quick-grid">
+<button
+  type="button"
+  class="quick-button"
+  data-message="lessTalking">
+  <span class="quick-icon">🔇</span>
+  Less Talking
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="break">
+  <span class="quick-icon">🧘</span>
+  I Need a Break
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="sensory">
+  <span class="quick-icon">🔊</span>
+  Too Much Input
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="demands">
+  <span class="quick-icon">🛑</span>
+  Reduce Demands
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="understand">
+  <span class="quick-icon">💬</span>
+  I Understand
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="notAngry">
+  <span class="quick-icon">❤️</span>
+  Not Angry
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="time">
+  <span class="quick-icon">⏳</span>
+  Give Me Time
+</button>
+<button
+  type="button"
+  class="quick-button"
+  data-message="stim">
+  <span class="quick-icon">🔄</span>
+  I Need to Stim
+</button>
+  </div>
+</section>
 <!-- STATUS -->
-<div class="section-title">
-  📊 Current System Status
-</div>
-<div id="status-app"></div>
+<section class="section">
+  <h2 class="section-title">
+    📊 Current System Status
+  </h2>
+  <p class="section-description">
+    Choose the level that best describes your
+    current state. The translation updates immediately.
+  </p>
+  <div id="statusApp"></div>
+</section>
 <!-- TRANSLATION -->
-<div id="translation">
-  <h2>Translation</h2>
-  <div id="translation-content"></div>
+<section class="section">
+  <h2 class="section-title">
+    🧠 Translation
+  </h2>
+  <div id="translationContent"></div>
+</section>
+<div class="footer">
+  Your status is saved on this device.
 </div>
-<!-- FULL SCREEN MESSAGE -->
-<div id="message-overlay">
-  <div class="message-icon"
-    id="message-icon"></div>
-  <div class="message-title"
-    id="message-title"></div>
-  <div class="message-text"
-    id="message-text"></div>
+</div>
+<!-- QUICK MESSAGE OVERLAY -->
+<div
+  class="message-overlay"
+  id="messageOverlay">
+  <div
+    class="message-icon"
+    id="messageIcon"></div>
+  <div
+    class="message-title"
+    id="messageTitle"></div>
+  <div
+    class="message-text"
+    id="messageText"></div>
 ← Back
   </button>
 </div>
 <script>
-/* QUICK MESSAGES */
+/* =========================================
+   QUICK COMMUNICATION
+========================================= */
 const messages = {
   lessTalking: {
     icon: "🔇",
     title: "I NEED LESS TALKING",
-    text: "I am having difficulty processing and responding to conversation right now. Please reduce unnecessary questions and give me time to process. I may understand what you are saying even if I cannot respond normally."
+    text:
+      "I am having difficulty processing and responding to conversation right now. Please reduce unnecessary questions and give me time to process. I may understand what you are saying even if I cannot respond normally."
   },
   break: {
     icon: "🧘",
     title: "I NEED A BREAK",
-    text: "My current capacity is reduced and I need time away from demands or stimulation. Please allow me to take a break without requiring me to explain or justify it."
+    text:
+      "My current capacity is reduced and I need time away from demands or stimulation. Please allow me to take a break without requiring me to explain or justify it."
   },
   sensory: {
     icon: "🔊",
     title: "TOO MUCH INPUT",
-    text: "My nervous system is receiving more sensory input than I can comfortably process right now. Reducing noise, talking, interruptions, light, touch, or other stimulation would help."
+    text:
+      "My nervous system is receiving more sensory input than I can comfortably process right now. Reducing noise, talking, interruptions, light, touch, or other stimulation would help."
   },
   demands: {
     icon: "🛑",
     title: "PLEASE REDUCE DEMANDS",
-    text: "Additional requests or expectations are difficult for me to process right now. Please avoid adding unnecessary demands and focus on what is actually urgent."
+    text:
+      "Additional requests or expectations are difficult for me to process right now. Please avoid adding unnecessary demands and focus on what is actually urgent."
   },
   understand: {
     icon: "💬",
     title: "I UNDERSTAND",
-    text: "I may understand what you are saying even though I am having difficulty responding. Please do not assume silence or delayed communication means I am ignoring you."
+    text:
+      "I may understand what you are saying even though I am having difficulty responding. Please do not assume silence or delayed communication means I am ignoring you."
   },
   notAngry: {
     icon: "❤️",
     title: "I'M NOT ANGRY",
-    text: "My reduced communication, facial expression, withdrawal, or need for space does not necessarily mean I am angry or upset with you. I currently have limited capacity to interact."
+    text:
+      "My reduced communication, facial expression, withdrawal, or need for space does not necessarily mean I am angry or upset with you. I currently have limited capacity to interact."
   },
   time: {
     icon: "⏳",
     title: "PLEASE GIVE ME TIME",
-    text: "I need additional time to process what is happening and determine how to respond. Please avoid repeatedly asking for an immediate answer."
+    text:
+      "I need additional time to process what is happening and determine how to respond. Please avoid repeatedly asking for an immediate answer."
   },
   stim: {
-    icon: "🧠",
+    icon: "🔄",
     title: "I NEED TO STIM",
-    text: "I may need repetitive movement, sounds, fidgeting, pacing, or another form of self-regulation. Please allow this unless there is a genuine safety concern. Stimming may help me regulate and recover capacity."
+    text:
+      "I may need repetitive movement, sounds, fidgeting, pacing, or another form of self-regulation. Please allow this unless there is a genuine safety concern. Stimming may help me regulate and recover capacity."
   }
 };
-function showMessage(key) {
-  const message = messages[key];
-  document.getElementById("message-icon").textContent =
-    message.icon;
-  document.getElementById("message-title").textContent =
-    message.title;
-  document.getElementById("message-text").textContent =
-    message.text;
-  document
-    .getElementById("message-overlay")
-    .classList.add("active");
-}
-function closeMessage() {
-  document
-    .getElementById("message-overlay")
-    .classList.remove("active");
-}
-/* RED ALERT */
-function activateAlert() {
-  document
-    .getElementById("alert-content")
-    .innerHTML = `
-      <div class="alert-box">
-        <h2>🚨 SYSTEM OVERLOADED</h2>
-        <p>
-          I am currently too overloaded to explain,
-          answer questions, or accurately assess what
-          is happening.
-        </p>
-        <p>
-          Please do not interpret silence, delayed
-          responses, reduced communication, stimming,
-          withdrawal, or a need to leave as anger,
-          disrespect, or lack of care.
-        </p>
-        <p>
-          <strong>BEST RESPONSE:</strong><br>
-          Reduce demands and sensory input. Avoid
-          asking multiple questions. Allow me to take
-          a break, stim, or have space.
-        </p>
-        <p>
-          If something is urgent, communicate it
-          simply and directly.
-        </p>
-        <button class="dismiss"
-          onclick="dismissAlert()">
-          I'm able to communicate again
-        </button>
-      </div>
-    `;
-}
-function dismissAlert() {
-  document
-    .getElementById("alert-content")
-    .innerHTML = "";
-}
-/* STATUS DATA */
+/* =========================================
+   STATUS METRICS
+========================================= */
 const metrics = {
   physical: {
     name: "🫀 Physical Capacity",
     type: "capacity",
-    description: "How much can my body physically do right now?"
+    description:
+      "How much can my body physically do right now?"
   },
   energy: {
     name: "⚡ Energy",
     type: "capacity",
-    description: "How much usable energy do I have?"
+    description:
+      "How much usable energy do I currently have?"
   },
   cognitive: {
     name: "🧠 Cognitive Bandwidth",
     type: "capacity",
-    description: "How much information and complexity can I process?"
+    description:
+      "How much information and complexity can I process?"
   },
   executive: {
     name: "🎯 Executive Function",
     type: "capacity",
-    description: "How easily can I start, organize, and complete tasks?"
+    description:
+      "How easily can I start, organize, and switch tasks?"
   },
   communication: {
     name: "💬 Communication Capacity",
     type: "capacity",
-    description: "How much communication can I produce and process?"
+    description:
+      "How easily can I communicate and respond?"
   },
   social: {
     name: "🤝 Social Capacity",
     type: "capacity",
-    description: "How much interpersonal interaction can I handle?"
+    description:
+      "How much interpersonal interaction can I handle?"
   },
   sensory: {
     name: "🔊 Sensory Load",
     type: "load",
-    description: "How overloaded am I by sensory input?"
+    description:
+      "How overloaded am I by sensory input?"
   },
   stress: {
     name: "⚠️ Stress Load",
     type: "load",
-    description: "How much accumulated pressure is my system carrying?"
+    description:
+      "How much accumulated pressure am I carrying?"
   },
   demand: {
     name: "📋 Demand Pressure",
     type: "load",
-    description: "How difficult are expectations and requests right now?"
+    description:
+      "How difficult are requests and expectations right now?"
   },
   transition: {
     name: "🔄 Transition Difficulty",
     type: "load",
-    description: "How difficult is switching tasks or changing plans?"
+    description:
+      "How difficult are interruptions or changes right now?"
   }
 };
-const capacityLabels =
-["", "Critical", "Low", "Limited", "Good", "Full"];
-const loadLabels =
-["", "Minimal", "Manageable", "Elevated", "High", "Critical"];
-let values =
-JSON.parse(
-  localStorage.getItem("systemStatus")
-) || {
+const capacityLabels = [
+  "",
+  "Critical",
+  "Low",
+  "Limited",
+  "Good",
+  "Full"
+];
+const loadLabels = [
+  "",
+  "Minimal",
+  "Manageable",
+  "Elevated",
+  "High",
+  "Critical"
+];
+/* =========================================
+   SAVED VALUES
+========================================= */
+const defaultValues = {
   physical: 3,
   energy: 3,
   cognitive: 3,
@@ -441,24 +591,39 @@ JSON.parse(
   demand: 3,
   transition: 3
 };
-/* RENDER QUESTIONS */
+let values = {
+  ...defaultValues,
+  ...JSON.parse(
+    localStorage.getItem("systemStatus") ||
+    "{}"
+  )
+};
+function saveValues() {
+  localStorage.setItem(
+    "systemStatus",
+    JSON.stringify(values)
+  );
+}
+/* =========================================
+   RENDER STATUS QUESTIONS
+========================================= */
 function renderStatus() {
   const app =
-    document.getElementById("status-app");
+    document.getElementById("statusApp");
   app.innerHTML = "";
-  addSection(
+  renderMetricGroup(
     app,
     "Available Capacity",
     "capacity"
   );
-  addSection(
+  renderMetricGroup(
     app,
     "Current Load",
     "load"
   );
   updateTranslation();
 }
-function addSection(
+function renderMetricGroup(
   app,
   title,
   type
@@ -466,23 +631,24 @@ function addSection(
   const heading =
     document.createElement("div");
   heading.className =
-    "section-title";
+    "status-group-title";
   heading.textContent =
     title;
   app.appendChild(heading);
   Object.entries(metrics)
     .filter(
-      ([key, metric]) =>
+      ([, metric]) =>
         metric.type === type
     )
     .forEach(
-      ([key, metric]) =>
+      ([key, metric]) => {
         app.appendChild(
           createMetric(
             key,
             metric
           )
-        )
+        );
+      }
     );
 }
 function createMetric(
@@ -492,19 +658,23 @@ function createMetric(
   const card =
     document.createElement("div");
   card.className =
-    "status";
-  card.innerHTML = `
-    <div class="status-name">
-      ${metric.name}
-    </div>
-    <div class="status-description">
-      ${metric.description}
-    </div>
-  `;
+    "metric";
+  const name =
+    document.createElement("div");
+  name.className =
+    "metric-name";
+  name.textContent =
+    metric.name;
+  const description =
+    document.createElement("div");
+  description.className =
+    "metric-description";
+  description.textContent =
+    metric.description;
   const levels =
     document.createElement("div");
   levels.className =
-    "levels";
+    "level-row";
   for (
     let level = 1;
     level <= 5;
@@ -512,8 +682,12 @@ function createMetric(
   ) {
     const button =
       document.createElement("button");
+    button.type =
+      "button";
     button.className =
-      "level";
+      "level-button";
+    button.textContent =
+      level;
     if (
       values[key] === level
     ) {
@@ -521,31 +695,40 @@ function createMetric(
         "selected"
       );
     }
-    const labels =
-      metric.type === "capacity"
-        ? capacityLabels
-        : loadLabels;
-    button.innerHTML = `
-      ${level}
-      <span class="level-label">
-        ${labels[level]}
-      </span>
-    `;
-    button.onclick =
-      () => {
-        values[key] = level;
-        localStorage.setItem(
-          "systemStatus",
-          JSON.stringify(values)
-        );
+    button.addEventListener(
+      "click",
+      function() {
+        values[key] =
+          level;
+        saveValues();
         renderStatus();
-      };
-    levels.appendChild(button);
+      }
+    );
+    levels.appendChild(
+      button
+    );
   }
+  const label =
+    document.createElement("div");
+  label.className =
+    "level-label";
+  const labels =
+    metric.type === "capacity"
+      ? capacityLabels
+      : loadLabels;
+  label.textContent =
+    labels[
+      values[key]
+    ];
+  card.appendChild(name);
+  card.appendChild(description);
   card.appendChild(levels);
+  card.appendChild(label);
   return card;
 }
-/* RESPONSE-FIRST TRANSLATOR */
+/* =========================================
+   RESPONSE-FIRST TRANSLATION
+========================================= */
 function updateTranslation() {
   const capacityKeys =
     Object.keys(metrics)
@@ -561,190 +744,498 @@ function updateTranslation() {
           metrics[key].type ===
           "load"
       );
-  const avgCapacity =
+  const capacityAverage =
     capacityKeys.reduce(
       (sum, key) =>
         sum + values[key],
       0
     ) / capacityKeys.length;
-  const avgLoad =
+  const loadAverage =
     loadKeys.reduce(
       (sum, key) =>
         sum + values[key],
       0
     ) / loadKeys.length;
+  /*
+    Critical conditions override averages.
+    This prevents a serious problem from
+    being hidden by otherwise good scores.
+  */
+  const criticalCapacity =
+    capacityKeys.filter(
+      key =>
+        values[key] === 1
+    );
+  const highLoad =
+    loadKeys.filter(
+      key =>
+        values[key] >= 5
+    );
+  const severeIssues =
+    criticalCapacity.length +
+    highLoad.length;
   let state;
   let response;
   if (
-    avgCapacity >= 4 &&
-    avgLoad <= 2
+    severeIssues >= 2 ||
+    (
+      capacityAverage < 2 &&
+      loadAverage >= 4
+    )
   ) {
-    state = "🟢 AVAILABLE";
-    response = "INTERACT NORMALLY";
+    state =
+      "🔴 OVERLOADED";
+    response =
+      "PROTECT AND ALLOW RECOVERY";
   }
   else if (
-    avgCapacity >= 3 &&
-    avgLoad <= 3
+    severeIssues >= 1 ||
+    capacityAverage < 3 ||
+    loadAverage >= 3.7
   ) {
-    state = "🟡 LIMITED";
-    response = "SIMPLIFY";
+    state =
+      "🟠 STRAINED";
+    response =
+      "REDUCE PRESSURE";
   }
   else if (
-    avgCapacity >= 2.3
+    capacityAverage < 4 ||
+    loadAverage > 2.2
   ) {
-    state = "🟠 STRAINED";
-    response = "REDUCE PRESSURE";
+    state =
+      "🟡 LIMITED";
+    response =
+      "SIMPLIFY";
   }
   else {
-    state = "🔴 OVERLOADED";
-    response = "PROTECT AND ALLOW RECOVERY";
+    state =
+      "🟢 AVAILABLE";
+    response =
+      "INTERACT NORMALLY";
   }
-  const issues = [];
-  Object.keys(metrics)
-    .forEach(key => {
-      const severity =
-        metrics[key].type === "capacity"
-          ? 6 - values[key]
-          : values[key];
-      issues.push({
-        key,
-        severity
-      });
-    });
-  issues.sort(
-    (a, b) =>
-      b.severity - a.severity
-  );
+  /*
+    Rank dominant limiting factors.
+  */
+  const factors =
+    Object.keys(metrics)
+      .map(
+        key => {
+          let severity;
+          if (
+            metrics[key].type ===
+            "capacity"
+          ) {
+            severity =
+              6 - values[key];
+          }
+          else {
+            severity =
+              values[key];
+          }
+          return {
+            key,
+            severity
+          };
+        }
+      )
+      .sort(
+        (a, b) =>
+          b.severity -
+          a.severity
+      );
   const primary =
-    issues.slice(0, 3);
-  const factorNames =
+    factors.slice(0, 3);
+  const primaryNames =
     primary
       .map(
-        item =>
-          metrics[item.key].name
-      )
-      .join(" • ");
-  let notice = [];
-  let actions = [];
-  if (values.sensory >= 4) {
-    notice.push(
-      "Increased stimming or attempts to regulate sensory input."
-    );
-    notice.push(
-      "A need for quiet, space, or a break."
-    );
-    actions.push(
-      "Reduce unnecessary noise and sensory input."
+        factor =>
+          metrics[factor.key].name
+      );
+  /*
+    Build a plain-English explanation.
+  */
+  const causes = [];
+  if (
+    values.energy <= 2
+  ) {
+    causes.push(
+      "available energy reserves are low"
     );
   }
-  if (values.communication <= 2) {
+  if (
+    values.physical <= 2
+  ) {
+    causes.push(
+      "physical capacity is limited"
+    );
+  }
+  if (
+    values.cognitive <= 2
+  ) {
+    causes.push(
+      "processing information requires extra effort"
+    );
+  }
+  if (
+    values.executive <= 2
+  ) {
+    causes.push(
+      "starting or switching tasks is difficult"
+    );
+  }
+  if (
+    values.communication <= 2
+  ) {
+    causes.push(
+      "communicating may be difficult even when understanding is intact"
+    );
+  }
+  if (
+    values.social <= 2
+  ) {
+    causes.push(
+      "social interaction is using a large amount of capacity"
+    );
+  }
+  if (
+    values.sensory >= 4
+  ) {
+    causes.push(
+      "sensory input is consuming significant capacity"
+    );
+  }
+  if (
+    values.stress >= 4
+  ) {
+    causes.push(
+      "accumulated stress is increasing the cost of ordinary tasks"
+    );
+  }
+  if (
+    values.demand >= 4
+  ) {
+    causes.push(
+      "current expectations and demands are creating additional pressure"
+    );
+  }
+  if (
+    values.transition >= 4
+  ) {
+    causes.push(
+      "interruptions and changes require extra effort"
+    );
+  }
+  let happening;
+  if (
+    causes.length === 0
+  ) {
+    happening =
+      "Current capacity appears generally available for normal activity.";
+  }
+  else if (
+    causes.length === 1
+  ) {
+    happening =
+      "The main limiting factor is that " +
+      causes[0] +
+      ".";
+  }
+  else {
+    happening =
+      "Current capacity is being affected because " +
+      causes.slice(0, 2).join(" and ") +
+      ".";
+  }
+  /*
+    Observable behavior.
+  */
+  const notice = [];
+  if (
+    values.sensory >= 4
+  ) {
+    notice.push(
+      "Increased stimming or attempts to self-regulate."
+    );
+    notice.push(
+      "A need for quiet, reduced stimulation, or a break."
+    );
+  }
+  if (
+    values.communication <= 2
+  ) {
     notice.push(
       "Short, delayed, or absent responses."
     );
-    actions.push(
-      "Do not assume reduced communication means lack of understanding."
-    );
   }
-  if (values.executive <= 2) {
+  if (
+    values.executive <= 2
+  ) {
     notice.push(
-      "Difficulty starting or switching tasks."
-    );
-    actions.push(
-      "Give one concrete step at a time."
+      "Difficulty starting, organizing, or switching tasks."
     );
   }
-  if (values.demand >= 4) {
-    actions.push(
-      "Reduce unnecessary requests and expectations."
-    );
-  }
-  if (values.transition >= 4) {
+  if (
+    values.transition >= 4
+  ) {
     notice.push(
-      "Difficulty with interruptions or sudden changes."
-    );
-    actions.push(
-      "Give advance warning before transitions when possible."
+      "Increased difficulty with interruptions or sudden changes."
     );
   }
-  if (values.social <= 2) {
+  if (
+    values.social <= 2
+  ) {
     notice.push(
       "Withdrawal or reduced interaction."
     );
-    actions.push(
-      "Allow space without assuming rejection."
+  }
+  if (
+    values.stress >= 4
+  ) {
+    notice.push(
+      "Reduced patience or a stronger need for space."
     );
   }
-  if (notice.length === 0) {
+  if (
+    notice.length === 0
+  ) {
     notice.push(
       "No major outward signs of reduced capacity may be obvious."
     );
   }
-  if (response === "INTERACT NORMALLY") {
-    actions.unshift(
+  /*
+    Helpful responses.
+  */
+  const actions = [];
+  if (
+    response ===
+    "INTERACT NORMALLY"
+  ) {
+    actions.push(
       "Normal conversation and expectations are generally manageable."
     );
   }
-  if (response === "SIMPLIFY") {
-    actions.unshift(
-      "Keep communication clear and avoid unnecessary complexity."
+  if (
+    response ===
+    "SIMPLIFY"
+  ) {
+    actions.push(
+      "Keep communication clear and direct."
+    );
+    actions.push(
+      "Avoid unnecessary complexity or stacking multiple requests."
     );
   }
-  if (response === "REDUCE PRESSURE") {
-    actions.unshift(
+  if (
+    response ===
+    "REDUCE PRESSURE"
+  ) {
+    actions.push(
       "Reduce unnecessary questions, decisions, and demands."
     );
-    actions.unshift(
-      "A break may help restore capacity."
+    actions.push(
+      "A break may help preserve or restore capacity."
+    );
+    actions.push(
+      "Give one thing at a time when possible."
     );
   }
-  if (response === "PROTECT AND ALLOW RECOVERY") {
-    actions.unshift(
-      "Reduce demands and sensory input immediately where possible."
+  if (
+    response ===
+    "PROTECT AND ALLOW RECOVERY"
+  ) {
+    actions.push(
+      "Reduce demands and sensory input as soon as possible."
     );
-    actions.unshift(
-      "Do not require conversation or an explanation."
+    actions.push(
+      "Do not require an explanation or extended conversation."
     );
-    actions.unshift(
-      "Allow a break, space, and self-regulation such as stimming."
+    actions.push(
+      "Allow space, a break, withdrawal, or stimming for self-regulation."
     );
   }
-  document
-    .getElementById(
-      "translation-content"
-    )
-    .innerHTML = `
-      <div class="system-state">
-        ${state}
-      </div>
-      <div class="best-response">
-        BEST RESPONSE:<br>
-        ${response}
-      </div>
-      <div class="translation-section">
-        <h3>What is happening</h3>
-        <p>
-          Current limitations are primarily related to
-          ${factorNames}.
-        </p>
-      </div>
-      <div class="translation-section">
-        <h3>What you may notice</h3>
-        <ul>
-          ${notice.map(
-            item => `<li>${item}</li>`
-          ).join("")}
-        </ul>
-      </div>
-      <div class="translation-section">
-        <h3>What helps</h3>
-        <ul>
-          ${actions.map(
-            item => `<li>${item}</li>`
-          ).join("")}
-        </ul>
-      </div>
-    `;
+  /*
+    Add specific recommendations.
+  */
+  if (
+    values.sensory >= 4
+  ) {
+    actions.push(
+      "Reduce noise, interruptions, and other unnecessary sensory input."
+    );
+  }
+  if (
+    values.communication <= 2
+  ) {
+    actions.push(
+      "Do not assume reduced communication means lack of understanding."
+    );
+  }
+  if (
+    values.transition >= 4
+  ) {
+    actions.push(
+      "Give advance warning before changes when possible."
+    );
+  }
+  /*
+    Render translation.
+  */
+  const translation =
+    document.getElementById(
+      "translationContent"
+    );
+  translation.innerHTML = `
+    <div class="translation-state">
+      ${state}
+    </div>
+    <div class="response-box">
+      <span class="response-label">
+        BEST RESPONSE
+      </span>
+      ${response}
+    </div>
+    <div class="translation-block">
+      <h3>
+        What is happening
+      </h3>
+      <p>
+        ${happening}
+      </p>
+    </div>
+    <div class="translation-block">
+      <h3>
+        What you may notice
+      </h3>
+      <ul>
+        ${notice
+          .map(
+            item =>
+              `<li>${item}</li>`
+          )
+          .join("")}
+      </ul>
+    </div>
+    <div class="translation-block">
+      <h3>
+        What helps
+      </h3>
+      <ul>
+        ${actions
+          .map(
+            item =>
+              `<li>${item}</li>`
+          )
+          .join("")}
+      </ul>
+    </div>
+    <div class="translation-block">
+      <h3>
+        Primary factors
+      </h3>
+      <p>
+        ${primaryNames.join(" • ")}
+      </p>
+    </div>
+  `;
 }
+/* =========================================
+   BUTTON EVENT LISTENERS
+========================================= */
+/* Red Alert */
+document
+  .getElementById(
+    "redAlertButton"
+  )
+  .addEventListener(
+    "click",
+    function() {
+      document
+        .getElementById(
+          "alertPanel"
+        )
+        .classList.add(
+          "active"
+        );
+    }
+  );
+document
+  .getElementById(
+    "dismissAlertButton"
+  )
+  .addEventListener(
+    "click",
+    function() {
+      document
+        .getElementById(
+          "alertPanel"
+        )
+        .classList.remove(
+          "active"
+        );
+    }
+  );
+/* Quick Communication */
+document
+  .querySelectorAll(
+    ".quick-button"
+  )
+  .forEach(
+    button => {
+      button.addEventListener(
+        "click",
+        function() {
+          const key =
+            button.dataset.message;
+          const message =
+            messages[key];
+          document
+            .getElementById(
+              "messageIcon"
+            )
+            .textContent =
+              message.icon;
+          document
+            .getElementById(
+              "messageTitle"
+            )
+            .textContent =
+              message.title;
+          document
+            .getElementById(
+              "messageText"
+            )
+            .textContent =
+              message.text;
+          document
+            .getElementById(
+              "messageOverlay"
+            )
+            .classList.add(
+              "active"
+            );
+        }
+      );
+    }
+  );
+document
+  .getElementById(
+    "messageBackButton"
+  )
+  .addEventListener(
+    "click",
+    function() {
+      document
+        .getElementById(
+          "messageOverlay"
+        )
+        .classList.remove(
+          "active"
+        );
+    }
+  );
+/* =========================================
+   START APP
+========================================= */
 renderStatus();
 </script>
 </body>
