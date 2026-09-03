@@ -20,63 +20,88 @@
 }
 body {
   margin: 0;
+  padding: 16px;
   background: var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
-header {
-  padding: 18px 20px 10px;
-  text-align: center;
-}
 h1 {
-  margin: 0;
+  text-align: center;
+  margin: 8px 0 4px;
   font-size: 28px;
 }
 .subtitle {
-  margin-top: 5px;
+  text-align: center;
   color: var(--muted);
   font-size: 14px;
+  margin-bottom: 20px;
 }
-/* ---------------- NAV ---------------- */
-nav {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  z-index: 10;
-}
-.nav-button {
-  flex: 1;
-  padding: 13px 5px;
+/* RED ALERT */
+.alert-button {
+  width: 100%;
+  background: var(--red);
   border: none;
-  border-radius: 14px;
-  background: var(--card2);
   color: white;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 16px;
 }
-.nav-button.active {
-  background: white;
-  color: black;
+.alert-box {
+  background: #321616;
+  border: 2px solid var(--red);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
-/* ---------------- PAGES ---------------- */
-.page {
-  display: none;
-  padding: 8px 16px 35px;
+.dismiss {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  margin-top: 12px;
+  font-size: 16px;
 }
-.page.active {
-  display: block;
-}
-/* ---------------- STATUS ---------------- */
+/* SECTION */
 .section-title {
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--muted);
-  margin: 22px 5px 10px;
+  margin: 28px 5px 12px;
 }
+/* QUICK COMMUNICATION */
+.quick-intro {
+  color: var(--muted);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.quick-button {
+  min-height: 110px;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 8px;
+  color: white;
+  background: var(--card);
+  font-size: 16px;
+  font-weight: 700;
+}
+.quick-button:active {
+  transform: scale(.97);
+}
+.quick-icon {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+/* STATUS QUESTIONS */
 .status {
   background: var(--card);
   border-radius: 18px;
@@ -103,7 +128,7 @@ nav {
   color: white;
   border-radius: 10px;
   padding: 11px 2px;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
 }
 .level.selected {
@@ -116,21 +141,22 @@ nav {
   margin-top: 4px;
   font-weight: normal;
 }
-/* ---------------- TRANSLATION ---------------- */
+/* TRANSLATION */
 #translation {
   background: var(--card);
   border-radius: 20px;
   padding: 20px;
   margin-top: 25px;
+  margin-bottom: 30px;
 }
 .system-state {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 800;
   margin-bottom: 10px;
 }
 .best-response {
   background: var(--card2);
-  padding: 15px;
+  padding: 16px;
   border-radius: 14px;
   margin: 15px 0;
   font-size: 18px;
@@ -147,47 +173,28 @@ nav {
   line-height: 1.5;
   color: #dedee2;
 }
-/* ---------------- QUICK COMMUNICATE ---------------- */
-.quick-intro {
-  color: var(--muted);
-  line-height: 1.4;
-  margin-bottom: 18px;
+/* FULL SCREEN MESSAGE */
+#message-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 100;
+  padding: 25px;
 }
-.quick-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.quick-button {
-  min-height: 125px;
-  border: none;
-  border-radius: 22px;
-  padding: 15px 8px;
-  color: white;
-  background: var(--card);
-  font-size: 17px;
-  font-weight: 700;
-}
-.quick-icon {
-  display: block;
-  font-size: 36px;
-  margin-bottom: 8px;
-}
-/* ---------------- MESSAGE SCREEN ---------------- */
-.message-screen {
-  min-height: 80vh;
+#message-overlay.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 }
 .message-icon {
-  font-size: 75px;
+  font-size: 70px;
 }
 .message-title {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 800;
-  margin: 18px 0;
+  margin: 20px 0;
 }
 .message-text {
   font-size: 20px;
@@ -201,245 +208,134 @@ nav {
   border-radius: 16px;
   font-size: 18px;
 }
-/* ---------------- RED ALERT ---------------- */
-.alert-button {
-  width: 100%;
-  background: var(--red);
-  border: none;
-  color: white;
-  border-radius: 22px;
-  padding: 22px;
-  font-size: 21px;
-  font-weight: 900;
-  margin-bottom: 20px;
-}
-.alert-box {
-  background: #321616;
-  border: 2px solid var(--red);
-  border-radius: 22px;
-  padding: 22px;
-  margin-top: 20px;
-}
-.alert-box h2 {
-  margin-top: 0;
-  color: var(--red);
-}
-.dismiss {
-  width: 100%;
-  padding: 15px;
-  border-radius: 14px;
-  border: none;
-  margin-top: 15px;
-  font-size: 16px;
-}
 </style>
 </head>
 <body>
-<header>
-  <h1>🧠 System Status</h1>
-  <div class="subtitle">
-    Real-time accessibility & communication
-  </div>
-</header>
-<nav>
+<h1>🧠 System Status</h1>
+<div class="subtitle">
+  Real-time accessibility & communication
+</div>
+<!-- RED ALERT -->
 
-⚡ Quick
-📊 Status
-🚨 Alert
-</nav>
-<!-- ================= QUICK ================= -->
-<div id="quick" class="page active">
-  <div class="quick-intro">
-Tap once. The app will communicate for you.
-  </div>
-  <div class="quick-grid">
-<button class="quick-button"
-  onclick="showMessage('lessTalking')">
-  <span class="quick-icon">🔇</span>
-  Less Talking
+🚨 RED ALERT — TOO OVERLOADED TO EXPLAIN
+
 </button>
-<button class="quick-button"
-  onclick="showMessage('break')">
-  <span class="quick-icon">🧘</span>
-  I Need a Break
-</button>
-<button class="quick-button"
-  onclick="showMessage('sensory')">
-  <span class="quick-icon">🔊</span>
-  Too Much Input
-</button>
-<button class="quick-button"
-  onclick="showMessage('demands')">
-  <span class="quick-icon">🛑</span>
-  Reduce Demands
-</button>
-<button class="quick-button"
-  onclick="showMessage('understand')">
-  <span class="quick-icon">💬</span>
-  I Understand
-</button>
-<button class="quick-button"
-  onclick="showMessage('notAngry')">
-  <span class="quick-icon">❤️</span>
-  Not Angry
-</button>
-<button class="quick-button"
-  onclick="showMessage('time')">
-  <span class="quick-icon">⏳</span>
-  Give Me Time
-</button>
-<button class="quick-button"
-  onclick="showMessage('stim')">
-  <span class="quick-icon">🧠</span>
-  I Need to Stim
-</button>
-  </div>
+<div id="alert-content"></div>
+<!-- QUICK COMMUNICATION -->
+<div class="section-title">
+  ⚡ Quick Communicate
 </div>
-<!-- ================= STATUS ================= -->
-<div id="status" class="page">
-  <div id="status-app"></div>
-  <div id="translation">
-<h2>Translation</h2>
-<div id="translation-content"></div>
-  </div>
+<div class="quick-intro">
+  Tap once when finding words is difficult.
 </div>
-<!-- ================= ALERT ================= -->
-<div id="alert" class="page">
-🚨 RED ALERT
-<br>
-TOO OVERLOADED TO EXPLAIN
+<div class="quick-grid">
+
+🔇
+Less Talking
+🧘
+I Need a Break
+🔊
+Too Much Input
+🛑
+Reduce Demands
+💬
+I Understand
+❤️
+Not Angry
+⏳
+Give Me Time
+🧠
+I Need to Stim
+</div>
+<!-- STATUS -->
+<div class="section-title">
+  📊 Current System Status
+</div>
+<div id="status-app"></div>
+<!-- TRANSLATION -->
+<div id="translation">
+  <h2>Translation</h2>
+  <div id="translation-content"></div>
+</div>
+<!-- FULL SCREEN MESSAGE -->
+<div id="message-overlay">
+  <div class="message-icon"
+    id="message-icon"></div>
+  <div class="message-title"
+    id="message-title"></div>
+  <div class="message-text"
+    id="message-text"></div>
+← Back
   </button>
-  <div id="alert-content"></div>
 </div>
-<!-- ================= MESSAGE SCREEN ================= -->
-<div id="message" class="page"></div>
 <script>
-/* =========================================
-   NAVIGATION
-========================================= */
-function showPage(pageId, button) {
-  document
-    .querySelectorAll('.page')
-    .forEach(page =>
-      page.classList.remove('active')
-    );
-  document
-    .getElementById(pageId)
-    .classList.add('active');
-  document
-    .querySelectorAll('.nav-button')
-    .forEach(btn =>
-      btn.classList.remove('active')
-    );
-  if (button) {
-    button.classList.add('active');
-  }
-}
-/* =========================================
-   QUICK COMMUNICATION MESSAGES
-========================================= */
+/* QUICK MESSAGES */
 const messages = {
   lessTalking: {
     icon: "🔇",
     title: "I NEED LESS TALKING",
-    text:
-      "I am having difficulty processing and responding to conversation right now. Please reduce unnecessary questions and give me time to process. I may understand what you are saying even if I cannot respond normally."
+    text: "I am having difficulty processing and responding to conversation right now. Please reduce unnecessary questions and give me time to process. I may understand what you are saying even if I cannot respond normally."
   },
   break: {
     icon: "🧘",
     title: "I NEED A BREAK",
-    text:
-      "My current capacity is reduced and I need time away from demands or stimulation. Please allow me to take a break without requiring me to explain or justify it."
+    text: "My current capacity is reduced and I need time away from demands or stimulation. Please allow me to take a break without requiring me to explain or justify it."
   },
   sensory: {
     icon: "🔊",
     title: "TOO MUCH INPUT",
-    text:
-      "My nervous system is receiving more sensory input than I can comfortably process right now. Reducing noise, talking, interruptions, light, touch, or other stimulation would help."
+    text: "My nervous system is receiving more sensory input than I can comfortably process right now. Reducing noise, talking, interruptions, light, touch, or other stimulation would help."
   },
   demands: {
     icon: "🛑",
     title: "PLEASE REDUCE DEMANDS",
-    text:
-      "Additional requests or expectations are difficult for me to process right now. Please avoid adding unnecessary demands and focus on what is actually urgent."
+    text: "Additional requests or expectations are difficult for me to process right now. Please avoid adding unnecessary demands and focus on what is actually urgent."
   },
   understand: {
     icon: "💬",
     title: "I UNDERSTAND",
-    text:
-      "I may understand what you are saying even though I am having difficulty responding. Please do not assume silence or delayed communication means I am ignoring you."
+    text: "I may understand what you are saying even though I am having difficulty responding. Please do not assume silence or delayed communication means I am ignoring you."
   },
   notAngry: {
     icon: "❤️",
     title: "I'M NOT ANGRY",
-    text:
-      "My reduced communication, facial expression, withdrawal, or need for space does not necessarily mean I am angry or upset with you. I currently have limited capacity to interact."
+    text: "My reduced communication, facial expression, withdrawal, or need for space does not necessarily mean I am angry or upset with you. I currently have limited capacity to interact."
   },
   time: {
     icon: "⏳",
     title: "PLEASE GIVE ME TIME",
-    text:
-      "I need additional time to process what is happening and determine how to respond. Please avoid repeatedly asking for an immediate answer."
+    text: "I need additional time to process what is happening and determine how to respond. Please avoid repeatedly asking for an immediate answer."
   },
   stim: {
     icon: "🧠",
     title: "I NEED TO STIM",
-    text:
-      "I may need repetitive movement, sounds, fidgeting, pacing, or another form of self-regulation. Please allow this unless there is a genuine safety concern. Stimming may help me regulate and recover capacity."
+    text: "I may need repetitive movement, sounds, fidgeting, pacing, or another form of self-regulation. Please allow this unless there is a genuine safety concern. Stimming may help me regulate and recover capacity."
   }
 };
 function showMessage(key) {
   const message = messages[key];
-  const page =
-    document.getElementById("message");
-  page.innerHTML = `
-    <div class="message-screen">
-      <div class="message-icon">
-        ${message.icon}
-      </div>
-      <div class="message-title">
-        ${message.title}
-      </div>
-      <div class="message-text">
-        ${message.text}
-      </div>
-      <button class="back-button"
-        onclick="returnToQuick()">
-        ← Back
-      </button>
-    </div>
-  `;
-  showPage("message");
+  document.getElementById("message-icon").textContent =
+    message.icon;
+  document.getElementById("message-title").textContent =
+    message.title;
+  document.getElementById("message-text").textContent =
+    message.text;
+  document
+    .getElementById("message-overlay")
+    .classList.add("active");
 }
-function returnToQuick() {
+function closeMessage() {
   document
-    .querySelectorAll('.page')
-    .forEach(page =>
-      page.classList.remove('active')
-    );
-  document
-    .getElementById('quick')
-    .classList.add('active');
-  document
-    .querySelectorAll('.nav-button')
-    .forEach(btn =>
-      btn.classList.remove('active')
-    );
-  document
-    .querySelector('.nav-button')
-    .classList.add('active');
+    .getElementById("message-overlay")
+    .classList.remove("active");
 }
-/* =========================================
-   RED ALERT
-========================================= */
+/* RED ALERT */
 function activateAlert() {
   document
     .getElementById("alert-content")
     .innerHTML = `
       <div class="alert-box">
-        <h2>
-          🚨 SYSTEM OVERLOADED
-        </h2>
+        <h2>🚨 SYSTEM OVERLOADED</h2>
         <p>
           I am currently too overloaded to explain,
           answer questions, or accurately assess what
@@ -452,9 +348,7 @@ function activateAlert() {
           disrespect, or lack of care.
         </p>
         <p>
-          <strong>
-            BEST RESPONSE:
-          </strong>
+          <strong>BEST RESPONSE:</strong><br>
           Reduce demands and sensory input. Avoid
           asking multiple questions. Allow me to take
           a break, stim, or have space.
@@ -475,9 +369,7 @@ function dismissAlert() {
     .getElementById("alert-content")
     .innerHTML = "";
 }
-/* =========================================
-   STATUS DATA
-========================================= */
+/* STATUS DATA */
 const metrics = {
   physical: {
     name: "🫀 Physical Capacity",
@@ -549,28 +441,24 @@ JSON.parse(
   demand: 3,
   transition: 3
 };
-/* =========================================
-   RENDER STATUS
-========================================= */
+/* RENDER QUESTIONS */
 function renderStatus() {
   const app =
-    document.getElementById(
-      "status-app"
-    );
+    document.getElementById("status-app");
   app.innerHTML = "";
-  addStatusSection(
+  addSection(
     app,
     "Available Capacity",
     "capacity"
   );
-  addStatusSection(
+  addSection(
     app,
     "Current Load",
     "load"
   );
   updateTranslation();
 }
-function addStatusSection(
+function addSection(
   app,
   title,
   type
@@ -581,23 +469,20 @@ function addStatusSection(
     "section-title";
   heading.textContent =
     title;
-  app.appendChild(
-    heading
-  );
+  app.appendChild(heading);
   Object.entries(metrics)
     .filter(
       ([key, metric]) =>
         metric.type === type
     )
     .forEach(
-      ([key, metric]) => {
+      ([key, metric]) =>
         app.appendChild(
           createMetric(
             key,
             metric
           )
-        );
-      }
+        )
     );
 }
 function createMetric(
@@ -640,292 +525,189 @@ function createMetric(
       metric.type === "capacity"
         ? capacityLabels
         : loadLabels;
-    button.innerHTML =
-      level +
-      `<span class="level-label">
+    button.innerHTML = `
+      ${level}
+      <span class="level-label">
         ${labels[level]}
-      </span>`;
+      </span>
+    `;
     button.onclick =
       () => {
-        values[key] =
-          level;
+        values[key] = level;
         localStorage.setItem(
           "systemStatus",
           JSON.stringify(values)
         );
         renderStatus();
       };
-    levels.appendChild(
-      button
-    );
+    levels.appendChild(button);
   }
-  card.appendChild(
-    levels
-  );
+  card.appendChild(levels);
   return card;
 }
-/* =========================================
-   RESPONSE-FIRST TRANSLATOR
-========================================= */
+/* RESPONSE-FIRST TRANSLATOR */
 function updateTranslation() {
   const capacityKeys =
     Object.keys(metrics)
       .filter(
         key =>
-          metrics[key]
-            .type ===
+          metrics[key].type ===
           "capacity"
       );
   const loadKeys =
     Object.keys(metrics)
       .filter(
         key =>
-          metrics[key]
-            .type ===
+          metrics[key].type ===
           "load"
       );
   const avgCapacity =
-    capacityKeys
-      .reduce(
-        (
-          sum,
-          key
-        ) =>
-          sum +
-          values[key],
-        0
-      )
-    /
-    capacityKeys.length;
+    capacityKeys.reduce(
+      (sum, key) =>
+        sum + values[key],
+      0
+    ) / capacityKeys.length;
   const avgLoad =
-    loadKeys
-      .reduce(
-        (
-          sum,
-          key
-        ) =>
-          sum +
-          values[key],
-        0
-      )
-    /
-    loadKeys.length;
+    loadKeys.reduce(
+      (sum, key) =>
+        sum + values[key],
+      0
+    ) / loadKeys.length;
   let state;
   let response;
   if (
     avgCapacity >= 4 &&
     avgLoad <= 2
   ) {
-    state =
-      "🟢 AVAILABLE";
-    response =
-      "INTERACT NORMALLY";
+    state = "🟢 AVAILABLE";
+    response = "INTERACT NORMALLY";
   }
   else if (
     avgCapacity >= 3 &&
     avgLoad <= 3
   ) {
-    state =
-      "🟡 LIMITED";
-    response =
-      "SIMPLIFY";
+    state = "🟡 LIMITED";
+    response = "SIMPLIFY";
   }
   else if (
     avgCapacity >= 2.3
   ) {
-    state =
-      "🟠 STRAINED";
-    response =
-      "REDUCE PRESSURE";
+    state = "🟠 STRAINED";
+    response = "REDUCE PRESSURE";
   }
   else {
-    state =
-      "🔴 OVERLOADED";
-    response =
-      "PROTECT AND ALLOW RECOVERY";
+    state = "🔴 OVERLOADED";
+    response = "PROTECT AND ALLOW RECOVERY";
   }
-  /* DOMINANT FACTORS */
-  let factors = [];
+  const issues = [];
   Object.keys(metrics)
-    .forEach(
-      key => {
-        let severity;
-        if (
-          metrics[key].type ===
-          "capacity"
-        ) {
-          severity =
-            6 - values[key];
-        }
-        else {
-          severity =
-            values[key];
-        }
-        factors.push({
-          key,
-          severity
-        });
-      }
-    );
-  factors.sort(
-    (
-      a,
-      b
-    ) =>
-      b.severity -
-      a.severity
+    .forEach(key => {
+      const severity =
+        metrics[key].type === "capacity"
+          ? 6 - values[key]
+          : values[key];
+      issues.push({
+        key,
+        severity
+      });
+    });
+  issues.sort(
+    (a, b) =>
+      b.severity - a.severity
   );
   const primary =
-    factors.slice(
-      0,
-      3
-    );
-  /* WHAT IS HAPPENING */
-  let cause =
-    "Several factors are contributing to current capacity.";
-  if (
-    primary.some(
-      f =>
-        f.key ===
-        "sensory"
-    )
-  ) {
-    cause =
-      "Sensory input is consuming a significant amount of available capacity.";
-  }
-  if (
-    primary.some(
-      f =>
-        f.key ===
-        "demand"
-    )
-  ) {
-    cause +=
-      " Current expectations and requests are adding additional pressure.";
-  }
-  if (
-    primary.some(
-      f =>
-        f.key ===
-        "executive"
-    )
-  ) {
-    cause +=
-      " Starting, organizing, or switching tasks may require extra effort.";
-  }
-  if (
-    primary.some(
-      f =>
-        f.key ===
-        "energy"
-    )
-  ) {
-    cause =
-      "Available energy reserves are currently limited, increasing the cost of ordinary activities.";
-  }
-  /* OBSERVABLE BEHAVIOR */
+    issues.slice(0, 3);
+  const factorNames =
+    primary
+      .map(
+        item =>
+          metrics[item.key].name
+      )
+      .join(" • ");
   let notice = [];
-  if (
-    values.sensory >= 4
-  ) {
+  let actions = [];
+  if (values.sensory >= 4) {
     notice.push(
       "Increased stimming or attempts to regulate sensory input."
     );
     notice.push(
       "A need for quiet, space, or a break."
     );
+    actions.push(
+      "Reduce unnecessary noise and sensory input."
+    );
   }
-  if (
-    values.communication <= 2
-  ) {
+  if (values.communication <= 2) {
     notice.push(
       "Short, delayed, or absent responses."
     );
-  }
-  if (
-    values.executive <= 2
-  ) {
-    notice.push(
-      "Difficulty starting, organizing, or switching tasks."
+    actions.push(
+      "Do not assume reduced communication means lack of understanding."
     );
   }
-  if (
-    values.transition >= 4
-  ) {
+  if (values.executive <= 2) {
     notice.push(
-      "Increased difficulty with interruptions or sudden changes."
+      "Difficulty starting or switching tasks."
+    );
+    actions.push(
+      "Give one concrete step at a time."
     );
   }
-  if (
-    values.social <= 2
-  ) {
+  if (values.demand >= 4) {
+    actions.push(
+      "Reduce unnecessary requests and expectations."
+    );
+  }
+  if (values.transition >= 4) {
+    notice.push(
+      "Difficulty with interruptions or sudden changes."
+    );
+    actions.push(
+      "Give advance warning before transitions when possible."
+    );
+  }
+  if (values.social <= 2) {
     notice.push(
       "Withdrawal or reduced interaction."
     );
-  }
-  if (
-    notice.length === 0
-  ) {
-    notice.push(
-      "Normal interaction may be possible, although capacity may still be reduced."
+    actions.push(
+      "Allow space without assuming rejection."
     );
   }
-  /* ACTIONS */
-  let actions = [];
-  if (
-    response ===
-    "INTERACT NORMALLY"
-  ) {
-    actions.push(
+  if (notice.length === 0) {
+    notice.push(
+      "No major outward signs of reduced capacity may be obvious."
+    );
+  }
+  if (response === "INTERACT NORMALLY") {
+    actions.unshift(
       "Normal conversation and expectations are generally manageable."
     );
   }
-  if (
-    response ===
-    "SIMPLIFY"
-  ) {
-    actions.push(
-      "Communicate clearly and avoid unnecessary complexity."
-    );
-    actions.push(
-      "Give one request or decision at a time when possible."
+  if (response === "SIMPLIFY") {
+    actions.unshift(
+      "Keep communication clear and avoid unnecessary complexity."
     );
   }
-  if (
-    response ===
-    "REDUCE PRESSURE"
-  ) {
-    actions.push(
+  if (response === "REDUCE PRESSURE") {
+    actions.unshift(
       "Reduce unnecessary questions, decisions, and demands."
     );
-    actions.push(
-      "Allow a break without requiring an explanation."
+    actions.unshift(
+      "A break may help restore capacity."
     );
   }
-  if (
-    response ===
-    "PROTECT AND ALLOW RECOVERY"
-  ) {
-    actions.push(
+  if (response === "PROTECT AND ALLOW RECOVERY") {
+    actions.unshift(
       "Reduce demands and sensory input immediately where possible."
     );
-    actions.push(
+    actions.unshift(
       "Do not require conversation or an explanation."
     );
-    actions.push(
-      "Allow space, a break, and self-regulation such as stimming."
+    actions.unshift(
+      "Allow a break, space, and self-regulation such as stimming."
     );
   }
-  /* FACTOR NAMES */
-  const factorNames =
-    primary
-      .map(
-        f =>
-          metrics[f.key].name
-      )
-      .join(
-        " • "
-      );
   document
     .getElementById(
       "translation-content"
@@ -935,53 +717,31 @@ function updateTranslation() {
         ${state}
       </div>
       <div class="best-response">
-        BEST RESPONSE:
-        <br>
+        BEST RESPONSE:<br>
         ${response}
       </div>
       <div class="translation-section">
-        <h3>
-          What is happening
-        </h3>
+        <h3>What is happening</h3>
         <p>
-          ${cause}
+          Current limitations are primarily related to
+          ${factorNames}.
         </p>
       </div>
       <div class="translation-section">
-        <h3>
-          What you may notice
-        </h3>
+        <h3>What you may notice</h3>
         <ul>
-          ${notice
-            .map(
-              item =>
-                `<li>${item}</li>`
-            )
-            .join("")
-          }
+          ${notice.map(
+            item => `<li>${item}</li>`
+          ).join("")}
         </ul>
       </div>
       <div class="translation-section">
-        <h3>
-          What helps
-        </h3>
+        <h3>What helps</h3>
         <ul>
-          ${actions
-            .map(
-              item =>
-                `<li>${item}</li>`
-            )
-            .join("")
-          }
+          ${actions.map(
+            item => `<li>${item}</li>`
+          ).join("")}
         </ul>
-      </div>
-      <div class="translation-section">
-        <h3>
-          Primary factors
-        </h3>
-        <p>
-          ${factorNames}
-        </p>
       </div>
     `;
 }
